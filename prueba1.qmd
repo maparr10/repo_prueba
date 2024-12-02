@@ -1,0 +1,54 @@
+---
+title: "prueba"
+author: "Marina"
+format: 
+  revealjs:
+    embed-resources: true
+editor: visual
+execute: 
+  echo: true
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(tidyverse)
+datos <- read_csv("./datos/accidentes.csv")
+datos
+```
+
+---
+
+## Resumen de los datos
+```{r}
+resumen <- datos |> count(sexo)
+#las tres lineas significan el cambio de pagina de la presentacion
+
+```
+
+--- 
+
+## Visualización
+```{r}
+#| code-fold: true
+gg<-
+  ggplot(resumen) +
+  geom_col(aes(x = sexo, y = n, fill = sexo), alpha = 0.6) +
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+plotly::ggplotly(gg)
+```
+
